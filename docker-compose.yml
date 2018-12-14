@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  server: 
+    container_name: server
+    build: ./server
+    ports:
+      - "8080:8080" # Expose API port
+      - "9229:9229" # Expose Node process debug port (disable in production)
+    environment: # Set ENV vars
+     - NODE_ENV=development
+     - ES_HOST=elasticsearch
+     - PORT=8080
+    volumes: # Attach to IDE
+      - ./server:/usr/src/app/server
+    command: nodemon server/server.js
+
+  client: 
+    container_name: client
+    build: ./client
+    ports:
+      - "3000:3000" # Forward site to localhost:8080
+    volumes:
+      - ./client/src:/usr/src/app/client/src
+      - ./client/public:/usr/src/app/client/public
+    links:
+      - server
+    
+  mongo:
+    container_name: mongodb
+    image: mongo
+    volumes: 
+      - ./server/data:/data
+    ports:
+      - "27017:27017"

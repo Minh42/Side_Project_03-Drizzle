@@ -1,0 +1,11 @@
+.signin {
+   display: flex;
+   
+    &-companies {
+        flex: 1;
+    }
+
+    &-influencers {
+        flex: 1;
+    }
+}
