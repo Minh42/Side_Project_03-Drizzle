@@ -9,8 +9,6 @@ class NewBrief extends Component {
             <DrizzleContext.Consumer>
             {drizzleContext => {
                 const { drizzle, drizzleState, initialized } = drizzleContext;
-                console.log(drizzle.contracts.CampaignFactory)
-                console.log(drizzleState)
                 if (!initialized) {
                     return "Loading...";
                 }

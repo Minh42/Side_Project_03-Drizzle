@@ -9,10 +9,10 @@ import { UNAUTHENTICATED } from './reducer_auth';
 // mapping of our state
 const appReducer = combineReducers({
     form: formReducer,
-    auth: authReducer,
-    companies: companiesReducer,
-    briefs: briefsReducer,
-    missions: missionsReducer
+    // auth: authReducer,
+    // companies: companiesReducer,
+    // briefs: briefsReducer,
+    // missions: missionsReducer
 });
 
 const rootReducer = (state, action) => {

@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { getAllMissionsAction } from '../../reducers/reducer_missions';
 
 class Briefs extends Component {
-    componentDidMount() {
-        this.props.getAllMissionsAction(this.props.currentUser)
-    }
+    // componentDidMount() {
+    //     this.props.getAllMissionsAction(this.props.currentUser)
+    // }
 
     renderMissions() {
         if (this.props.missions) {
@@ -47,17 +47,19 @@ class Briefs extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        currentUser: state.auth.currentUser,
-        missions: state.missions.missions
-    };
-}
+// function mapStateToProps(state) {
+//     return {
+//         currentUser: state.auth.currentUser,
+//         missions: state.missions.missions
+//     };
+// }
 
-function mapDispatchToProps(dispatch) { 
-	return bindActionCreators({ 
-        getAllMissionsAction : getAllMissionsAction
-    }, dispatch);
-} 
+// function mapDispatchToProps(dispatch) { 
+// 	return bindActionCreators({ 
+//         getAllMissionsAction : getAllMissionsAction
+//     }, dispatch);
+// } 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Briefs);
+export default Briefs;
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Briefs);

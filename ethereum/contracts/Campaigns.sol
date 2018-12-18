@@ -16,9 +16,8 @@ contract CampaignFactory {
 contract Campaign {
     
     struct User {
-        string      userID;
+        address     userAddress;
         uint        reach;
-        string      hashtags;
         bool        paid;
     }
     
@@ -29,7 +28,8 @@ contract Campaign {
         bytes32[]   hashtags;
         uint        gain;
         bool        complete;
-        mapping(address => User) users;
+        uint        usersCount;
+        mapping(uint => User) users;
     }
     
     mapping(address => Mission) missions;
@@ -51,5 +51,26 @@ contract Campaign {
         mission.target = _target;
         mission.hashtags = _hashtags;
         mission.gain = _gain;
+        mission.complete = false;
+    }
+    
+    function getMission(address _creator) public view returns (string brand, string brief, uint target, bytes32[] hashtags, uint gain, bool complete) {
+        Mission memory p = missions[_creator];
+        return (p.brand, p.brief, p.target, p.hashtags, p.gain, p.complete);
+    }
+    
+    function apply() public {
+        Mission storage mission = missions[manager];
+        mission.users[mission.usersCount++] = User({userAddress: msg.sender, reach: 0, paid: false});
+    }
+
+    function getUser(uint index) public view returns (address userAddress, uint reach, bool paid) {
+        Mission storage m = missions[manager];
+        return (m.users[index].userAddress, m.users[index].reach, m.users[index].paid);
+    }
+
+    function getUsersCount() public view returns (uint usersCount) {
+        Mission storage m = missions[manager];
+        return (m.usersCount);
     }
 }

@@ -16,10 +16,25 @@ class FormBrief extends Component {
         this.props.initialize(initData);
     }
 
-    onSubmit(values) {
-        console.log(this.props.drizzle)
+    async componentDidMount() {
+        // const { drizzle } = this.props;
+        // const contract = drizzle.contracts.CampaignFactory;
+        // const test = await contract.methods.getDeployedCampaigns().call();
+        // console.log(test)
 
-        
+        // const test2 = await contract.methods.deployedCampaigns("0x7443b4d9e0Bda43b013343fD8a14a2943378509c").call();
+
+    }
+
+    async onSubmit(values) {
+        const { drizzle } = this.props;
+        const contract = drizzle.contracts.CampaignFactory;
+        const { brand, brief, target, gain } = values;
+        const hashtags = values.hashtags.split(" ");
+        const test = hashtags.map((hashtag) => drizzle.web3.utils.asciiToHex(hashtag));
+        await contract.methods
+            .createCampaign(brand, brief, target, test, gain)
+            .send()
 
         // values["id"] = this.props.currentCompany._id;
         // values["company"] = this.props.currentCompany.company;
@@ -75,18 +90,20 @@ class FormBrief extends Component {
 
 }
 
-function mapStateToProps(state) {
-    return {
-        currentCompany: state.auth.currentCompany
-    };
-}
+// function mapStateToProps(state) {
+//     return {
+//         currentCompany: state.auth.currentCompany
+//     };
+// }
 
-function mapDispatchToProps(dispatch) { 
-	return bindActionCreators({ newBriefAction : newBriefAction}, dispatch);
-} 
+// function mapDispatchToProps(dispatch) { 
+// 	return bindActionCreators({ newBriefAction : newBriefAction}, dispatch);
+// } 
 
 const reduxFormBrief = reduxForm({
     form: 'brief'
 })(FormBrief);
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxFormBrief);
+export default reduxFormBrief;
+
+// export default connect(mapStateToProps, mapDispatchToProps)(reduxFormBrief);

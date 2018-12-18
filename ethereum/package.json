@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fs": "0.0.1-security",
     "ganache-cli": "^6.2.3",
     "solc": "^0.5.1",
     "truffle": "^4.1.14",
